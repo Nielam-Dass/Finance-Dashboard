@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Price History</title>
+    <link rel="stylesheet" href="search_price_data.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+</head>
+<body>
+    <div>
+        <a href="/dashboard" id="dashboard-link">&lt;&lt;Back to dashboard</a>
+    </div>
+    <h1>Price history</h1>
+
+    <div>
+        <form id="search-form">
+            <label for="ticker-selection">Select Ticker:</label>
+            <select name="tickerSelection" id="ticker-selection">
+                <option th:each="ticker: ${tickerList}" th:value="${ticker}" th:text="${ticker}"
+                        th:selected="${ticker==tickerSelection}"></option>
+            </select>
+
+            <label for="from" style="margin-left: 20px;">From Date:</label>
+            <input type="date" id="from" name="fromDate" th:value="${fromDate}">
+            <label for="to" style="margin-left: 20px;">To Date:</label>
+            <input type="date" id="to" name="toDate" th:value="${toDate}">
+            <input style="margin-left: 20px;" type="submit">
+        </form>
+    </div>
+    <div th:if="${noDataFound}" style="color: red;">No data found for specified range</div>
+    <div th:if="${prices!=null}">
+
+        <canvas id="price-chart" style="max-width:1000px;"></canvas>
+
+        <script th:inline="javascript">
+            const priceSeries = /*[[${prices}]]*/;
+
+            const startDate = new Date(/*[[${firstDate}]]*/);
+            const endDate = new Date(/*[[${lastDate}]]*/);
+            const dateRange = [];
+            for(let d=startDate; d<=endDate; d.setDate(d.getDate()+1)){
+                dateRange.push((new Date(d)).toISOString().split("T")[0]);
+            }
+
+            const priceCart = new Chart("price-chart", {
+                type: "line",
+                data: {
+                    labels: dateRange,
+                    datasets: [{
+                        label: "Price",
+                        data: priceSeries,
+                        tension: 0,
+                        backgroundColor: "rgba(3, 169, 252, 0.2)",
+                        borderColor: "rgba(3, 169, 252, 0.2)"
+                    }]
+                },
+                options: {
+                    legend: {display: false},
+                    scales:{
+                        yAxes: [{scaleLabel: {display: true, labelString: 'Closing Price'}}],
+                        xAxes: [{scaleLabel: {display: true, labelString: 'Date'}}]
+                    }
+                }
+            });
+        </script>
+    </div>
+
+
+</body>
+</html>

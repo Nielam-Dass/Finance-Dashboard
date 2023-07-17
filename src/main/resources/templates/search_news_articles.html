@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>News Archive</title>
+    <link rel="stylesheet" href="search_news_articles.css">
+</head>
+<body>
+    <div>
+        <a href="/dashboard" id="dashboard-link">&lt;&lt;Back to dashboard</a>
+    </div>
+    <h1>News Archive Search</h1>
+    <div>
+        <form id="search-form">
+            <label for="search-box">Search:</label>
+            <input type="text" id="search-box" name="q" th:value="${q}">
+            <label for="from" style="margin-left: 20px;">From Date:</label>
+            <input type="date" id="from" name="fromDate" th:value="${fromDate}">
+            <label for="to" style="margin-left: 20px;">To Date:</label>
+            <input type="date" id="to" name="toDate" th:value="${toDate}">
+            <input style="margin-left: 20px;" type="submit">
+        </form>
+    </div>
+    <div th:if="${filteredArticles != null}" th:text="'Found ' + ${#lists.size(filteredArticles)} + ' result(s)'"></div>
+    <div th:if="${filteredArticles != null}" th:each="article: ${filteredArticles}">
+        <a th:href="${article.articleUrl}">
+            <div class="article-container">
+                <p class="article-date" th:text="${article.dateRetrieved}"></p>
+                <h2 class="article-title" th:text="${article.articleTitle}"></h2>
+                <p class="article-description" th:text="${article.articleDesc}"></p>
+            </div>
+        </a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="dashboard.css">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to the Finance Dashboard</h1>
+    <h2>Market Performance:</h2>
+    <hr>
+    <div th:if="${#lists.size(recentMarketSnapshots)>0}" class="prices-container">
+        <div th:if="${#lists.size(recentMarketSnapshots)==2}"
+             class="ticker-price-container" th:each="tickerSymbol: ${tickerList}"
+             th:with="currentPrice=${recentMarketSnapshots.get(0).getPriceOf(tickerSymbol)},
+             prevPrice=${recentMarketSnapshots.get(1).getPriceOf(tickerSymbol)}"
+             th:classappend="${(currentPrice>prevPrice*1.00001 ? 'bullish-ticker' : '') +
+             (currentPrice<prevPrice*0.9999 ? 'bearish-ticker' : '')}">
+            <div th:text="${tickerSymbol}"></div>
+            <div th:text="${#numbers.formatDecimal(currentPrice, 1, 2)}"></div>
+            <div>
+                <span th:text="(${currentPrice>prevPrice} ? '+' : '') + ${#numbers.formatDecimal((currentPrice-prevPrice)/prevPrice*100, 1, 2)} + '%'"></span>
+            </div>
+        </div>
+
+        <div th:if="${#lists.size(recentMarketSnapshots)==1}"
+             class="ticker-price-container" th:each="tickerSymbol: ${tickerList}"
+             th:with="currentPrice=${recentMarketSnapshots.get(0).getPriceOf(tickerSymbol)}">
+            <div th:text="${tickerSymbol}"></div>
+            <div th:text="${#numbers.formatDecimal(currentPrice, 1, 2)}"></div>
+        </div>
+    </div>
+    <div th:if="${#lists.size(recentMarketSnapshots)==0}" style="text-align:center; padding:50px;">No Data To Show Here</div>
+    <hr>
+    <a class="search-link" href="/search/price-data">Search historical price data>></a>
+
+    <h2>Business News:</h2>
+    <div th:each="article: ${recentArticles}">
+        <a th:href="${article.articleUrl}">
+            <div class="article-container">
+                <img class="article-thumbnail" th:src="${article.articleThumbnail}">
+                <h2 class="article-title" th:text="${article.articleTitle}"></h2>
+                <p class="article-description" th:text="${article.articleDesc}"></p>
+            </div>
+        </a>
+    </div>
+
+    <a class="search-link" href="/search/news-articles">Search news archive>></a>
+</body>
+</html>

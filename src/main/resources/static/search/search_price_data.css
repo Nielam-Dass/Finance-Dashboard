@@ -1,0 +1,19 @@
+body{
+    padding: 20px;
+    font-family: Arial;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+h1{
+    text-align: center;
+    text-decoration: underline;
+}
+body>div{
+    margin: 6px;
+}
+#dashboard-link{
+    text-decoration: underline;
+    color: blue;
+}

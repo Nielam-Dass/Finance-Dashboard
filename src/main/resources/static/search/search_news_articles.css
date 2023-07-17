@@ -1,0 +1,54 @@
+body{
+    padding: 20px;
+    font-family: Arial;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+h1{
+    text-align: center;
+    text-decoration: underline;
+}
+body>div{
+    margin: 6px;
+}
+#dashboard-link{
+    text-decoration: underline;
+    color: blue;
+}
+#search-form{
+    padding-bottom: 30px;
+    padding-top: 20px;
+}
+
+.article-container{
+    display: grid;
+    padding: 10px;
+    grid-template-columns: auto 1fr 1fr 1fr;
+    grid-template-rows: repeat(2, 60px);
+    gap: 10px;
+    grid-template-areas:
+    "a b b b"
+    "a c c c";
+
+    border: 1px solid black;
+
+}
+.article-container:hover{
+    border: 3px solid green;
+}
+.article-date{
+    grid-area: a;
+    padding: 50px;
+}
+
+.article-title{
+    grid-area: b;
+    text-decoration: underline;
+}
+
+.article-description{
+    grid-area: c;
+}
+
