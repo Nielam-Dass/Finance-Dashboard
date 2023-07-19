@@ -67,7 +67,7 @@ public class NewsArticleService {
     public List<NewsArticle> filterArticles(LocalDate fromDate, LocalDate toDate, String q){
         List<NewsArticle> filteredArticles = new ArrayList<>();
         String query = "SELECT * FROM news_article WHERE date_retrieved>=? AND date_retrieved<=? " +
-                "AND (article_title LIKE ? OR article_desc LIKE ?);";
+                "AND (article_title LIKE ? OR article_desc LIKE ?) ORDER BY date_retrieved DESC;";
         try {
             Connection conn = dataSource.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(query);
