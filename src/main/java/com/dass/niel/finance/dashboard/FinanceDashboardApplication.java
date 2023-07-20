@@ -2,9 +2,10 @@ package com.dass.niel.finance.dashboard;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class FinanceDashboardApplication {
+public class FinanceDashboardApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FinanceDashboardApplication.class, args);

@@ -34,7 +34,7 @@
     </div>
     <div th:if="${#lists.size(recentMarketSnapshots)==0}" style="text-align:center; padding:50px;">No Data To Show Here</div>
     <hr>
-    <a class="search-link" href="/search/price-data">Search historical price data>></a>
+    <a class="search-link" th:href="@{/search/price-data}">Search historical price data>></a>
 
     <h2>Business News:</h2>
     <div th:each="article: ${recentArticles}">
@@ -47,6 +47,6 @@
         </a>
     </div>
 
-    <a class="search-link" href="/search/news-articles">Search news archive>></a>
+    <a class="search-link" th:href="@{/search/news-articles}">Search news archive>></a>
 </body>
 </html>
