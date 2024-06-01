@@ -35,6 +35,7 @@ public class NewsArticleService {
                 recentArticles.add(new NewsArticle(articleId, articleUrl, articleTitle, articleDesc,
                         articleThumbnail, dateRetrieved));
             }
+            conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -59,6 +60,7 @@ public class NewsArticleService {
                 rowsInserted += preparedStatement.executeUpdate();
             }
             logger.info("{} row(s) inserted into table news_article", rowsInserted);
+            conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -88,6 +90,7 @@ public class NewsArticleService {
                 filteredArticles.add(new NewsArticle(articleId, articleUrl, articleTitle, articleDesc,
                         articleThumbnail, dateRetrieved));
             }
+            conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

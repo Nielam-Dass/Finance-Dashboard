@@ -38,6 +38,7 @@ public class MarketPerformanceSnapshotService {
                 LocalDate snapshotDate = resultSet.getDate("snapshot_date").toLocalDate();
                 recentSnapshots.add(new MarketPerformanceSnapshot(snapshotId, prices, snapshotDate));
             }
+            conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -60,6 +61,7 @@ public class MarketPerformanceSnapshotService {
 
             preparedStatement.executeUpdate();
             logger.info("1 row inserted into table market_performance_snapshot");
+            conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -97,6 +99,7 @@ public class MarketPerformanceSnapshotService {
                 Double tickerSnapshotPrice = resultSet.getDouble(tickerColumnName);
                 historicalPriceData.put(snapshotDate, tickerSnapshotPrice);
             }
+            conn.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
