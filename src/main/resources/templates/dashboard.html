@@ -42,7 +42,7 @@
             <div class="article-container">
                 <img class="article-thumbnail" th:src="${article.articleThumbnail}">
                 <h2 class="article-title" th:text="${article.articleTitle}"></h2>
-                <p class="article-description" th:text="${article.articleDesc}"></p>
+                <p class="article-description" th:text="${article.articleDesc} + '...'"></p>
             </div>
         </a>
     </div>
